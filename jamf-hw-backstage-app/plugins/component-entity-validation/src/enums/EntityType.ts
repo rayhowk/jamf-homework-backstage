@@ -1,0 +1,4 @@
+
+enum EntityType {
+  Component = 'Component'
+}
