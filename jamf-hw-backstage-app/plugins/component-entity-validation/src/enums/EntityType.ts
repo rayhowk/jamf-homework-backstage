@@ -1,4 +1,0 @@
-
-enum EntityType {
-  Component = 'Component'
-}

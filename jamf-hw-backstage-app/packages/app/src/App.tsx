@@ -95,7 +95,7 @@ const routes = (
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
-    <Route path="/component-entity-validation" element={<ComponentEntityValidationPage />} />
+    <Route path="/entity-validation" element={<ComponentEntityValidationPage />} />
   </FlatRoutes>
 );
 
