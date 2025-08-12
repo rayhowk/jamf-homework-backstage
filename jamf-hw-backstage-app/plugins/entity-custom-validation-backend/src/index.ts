@@ -1,0 +1,1 @@
+export { ComponentValidationCatalogProcessor } from './plugin';

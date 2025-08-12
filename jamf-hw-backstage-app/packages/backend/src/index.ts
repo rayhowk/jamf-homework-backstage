@@ -7,6 +7,9 @@
  */
 
 import { createBackend } from '@backstage/backend-defaults';
+import { createBackendModule } from '@backstage/backend-plugin-api'
+import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
+import { ComponentValidationCatalogProcessor } from '@internal/plugin-entity-custom-validation-backend';
 
 const backend = createBackend();
 
@@ -51,5 +54,25 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 
 // kubernetes
 backend.add(import('@backstage/plugin-kubernetes-backend'));
+
+// custom validator for component entity
+const componentValidationCatalogProcessor = createBackendModule({
+  pluginId: 'catalog',
+  moduleId: 'system-x-reader-processor',
+  register(env) {
+    env.registerInit({
+      deps: {
+        catalog: catalogProcessingExtensionPoint,
+      },
+      async init({ catalog }) {
+        catalog.addProcessor(new ComponentValidationCatalogProcessor());
+      },
+    });
+  },
+});
+
+backend.add(componentValidationCatalogProcessor);
+
+
 
 backend.start();
